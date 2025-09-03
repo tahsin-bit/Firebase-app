@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:roktalap/screens/login_screen.dart';
+import 'package:food_donation_app/screens/login_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: const LoginScreen(),
+      debugShowCheckedModeBanner: false, // Removed debug badge
     );
   }
 }

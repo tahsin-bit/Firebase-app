@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:roktalap/screens/donor_registration_screen.dart';
-import 'package:roktalap/screens/recipient_registration_screen.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 class AccountTypeSelectionScreen extends StatefulWidget {
   const AccountTypeSelectionScreen({super.key});
@@ -14,72 +14,81 @@ class _AccountTypeSelectionScreenState extends State<AccountTypeSelectionScreen>
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).primaryColor,
-        elevation: 0,
-        centerTitle: true,
-        title: const Text('Welcome to Roktalap'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Text(
-              'Choose Your Account Type',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-            const Text(
-              'Do you want to donate blood or need blood?',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16, color: Colors.grey),
-            ),
-            const SizedBox(height: 32),
-            _buildAccountTypeCard(
-              title: "Blood Donor",
-              subtitle: "Help save lives by donating blood to those in need. Join our community of heroes.",
-              icon: Icons.bloodtype,
-              isSelected: _selectedAccountType == "Donor",
-              onTap: () => setState(() => _selectedAccountType = "Donor"),
-            ),
-            const SizedBox(height: 16.0),
-            _buildAccountTypeCard(
-              title: "Need Blood",
-              subtitle: "Find blood donors quickly in emergency situations. Get help when you need it most.",
-              icon: Icons.healing,
-              isSelected: _selectedAccountType == "Recipient",
-              onTap: () => setState(() => _selectedAccountType = "Recipient"),
-            ),
-            const Spacer(),
-            ElevatedButton(
-              onPressed: () {
-                if (_selectedAccountType == 'Donor') {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const DonorRegistrationScreen(),
-                    ),
-                  );
-                } else {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const RecipientRegistrationScreen(),
-                    ),
-                  );
-                }
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Theme.of(context).primaryColor,
-                minimumSize: const Size(double.infinity, 50),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
+            CurvedHeader(
+              height: size.height * 0.25, // Responsive header height
+              title: 'Choose Account Type',
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back, color: Colors.white, size: 30),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
               ),
-              child: const Text('Continue', style: TextStyle(color: Colors.white)),
+            ),
+            Padding(
+              padding: EdgeInsets.all(size.width * 0.04), // Responsive padding
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  SizedBox(height: size.height * 0.02), // Responsive spacing
+                  Text(
+                    'Do you want to donate blood or need blood?',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: size.width * 0.045, color: Colors.grey[700]),
+                  ),
+                  SizedBox(height: size.height * 0.04),
+                  _buildAccountTypeCard(
+                    title: "Blood Donor",
+                    subtitle: "Help save lives by donating blood to those in need. Join our community of heroes.",
+                    icon: Icons.bloodtype,
+                    isSelected: _selectedAccountType == "Donor",
+                    onTap: () => setState(() => _selectedAccountType = "Donor"),
+                    context: context,
+                  ),
+                  SizedBox(height: size.height * 0.02), // Responsive spacing
+                  _buildAccountTypeCard(
+                    title: "Need Blood",
+                    subtitle: "Find blood donors quickly in emergency situations. Get help when you need it most.",
+                    icon: Icons.healing,
+                    isSelected: _selectedAccountType == "Recipient",
+                    onTap: () => setState(() => _selectedAccountType = "Recipient"),
+                    context: context,
+                  ),
+                  SizedBox(height: size.height * 0.04), // Responsive spacing
+                  ElevatedButton(
+                    onPressed: () {
+                      if (_selectedAccountType == 'Donor') {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const DonorRegistrationScreen(),
+                          ),
+                        );
+                      } else {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const RecipientRegistrationScreen(),
+                          ),
+                        );
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).primaryColor,
+                      minimumSize: Size(double.infinity, size.height * 0.06), // Responsive button height
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: Text('Continue', style: TextStyle(color: Colors.white, fontSize: size.width * 0.05)), // Responsive font size
+                  ),
+                ],
+              ),
             ),
           ],
         ),
@@ -93,7 +102,9 @@ class _AccountTypeSelectionScreenState extends State<AccountTypeSelectionScreen>
     required IconData icon,
     required bool isSelected,
     required VoidCallback onTap,
+    required BuildContext context,
   }) {
+    final size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: onTap,
       child: Card(
@@ -106,27 +117,27 @@ class _AccountTypeSelectionScreenState extends State<AccountTypeSelectionScreen>
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(24.0),
+          padding: EdgeInsets.all(size.width * 0.06), // Responsive padding
           child: Column(
             children: [
-              Icon(icon, size: 48, color: Theme.of(context).primaryColor),
-              const SizedBox(height: 16),
+              Icon(icon, size: size.width * 0.12, color: Theme.of(context).primaryColor), // Responsive icon size
+              SizedBox(height: size.height * 0.02), // Responsive spacing
               Text(
                 title,
-                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: size.width * 0.055, fontWeight: FontWeight.bold), // Responsive font size
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: size.height * 0.01), // Responsive spacing
               Text(
                 subtitle,
                 textAlign: TextAlign.center,
-                style: const TextStyle(color: Colors.grey),
+                style: TextStyle(color: Colors.grey, fontSize: size.width * 0.04), // Responsive font size
               ),
-              if (isSelected) const SizedBox(height: 16),
+              if (isSelected) SizedBox(height: size.height * 0.02), // Responsive spacing
               if (isSelected)
-                const Chip(
-                  label: Text('Selected'),
+                Chip(
+                  label: Text('Selected', style: TextStyle(fontSize: size.width * 0.04)), // Responsive font size
                   backgroundColor: Colors.red,
-                  labelStyle: TextStyle(color: Colors.white),
+                  labelStyle: const TextStyle(color: Colors.white),
                 ),
             ],
           ),

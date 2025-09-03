@@ -1,43 +1,34 @@
-# Project Blueprint
+# Project: Food Donation App
 
-## Overview
+**Purpose:** Facilitate food donations and distribution, connecting donors with recipients.
 
-This document outlines the style, design, and features of the Flutter application. It serves as a single source of truth for the project's current state and future development plans.
+**Current Features:**
+*   User authentication (login, registration).
+*   Separate registration flows for donors and recipients.
+*   Basic UI for login with a carved header.
+*   Pill-shaped navigation bar for main screens.
+*   Placeholder pages for donor/recipient home, map, profile, settings, chat history, chat screen, and find donors.
 
-## Style and Design
+**Current Requested Change Plan:**
 
-The application uses a modern and clean design, with a consistent color scheme and typography. The UI is built using Flutter's Material Design components, with custom styles for a unique look and feel.
-
-*   **Color Scheme:** The primary color is a deep purple, with a light and dark theme available.
-*   **Typography:** The app uses the Oswald, Roboto, and Open Sans fonts from Google Fonts for a clean and readable text style.
-*   **Layout:** The layout is designed to be responsive and adapt to different screen sizes, ensuring a great user experience on both mobile and web.
-
-## Implemented Features
-
-*   User authentication (Login and Registration)
-*   Google Sign-In
-*   Separate dashboards for Donors and Recipients
-*   Account type selection
-*   Curved header design on the login screen
-*   Pill-shaped navigation bar for the main screens
-
-## Current Task: UI Enhancements and Forgot Password
-
-The current task is to enhance the UI by adding a carved header to more screens, implementing a profile picture upload feature, improving the Google sign-in button, and making the app fully responsive. Additionally, a "Forgot Password" feature will be implemented.
-
-### Plan:
-
-1.  **Add Dependencies:**
-    *   Add `image_picker` for selecting a profile picture.
-    *   Add `font_awesome_flutter` for the Google logo.
-2.  **Create Forgot Password Screen:**
-    *   Create a new screen with an email input field and a "Send OTP" button.
-3.  **Update UI:**
-    *   Add the carved header to the account type selection and registration screens.
-    *   Add a profile picture upload option to the registration forms.
-    *   Display the uploaded profile picture in the header of the login and registration screens.
-    *   Add the Google logo to the "Sign In with Google" button.
-4.  **Responsiveness:**
-    *   Ensure all screens are responsive and adapt to different screen sizes.
-5.  **Final Touches:**
-    *   Remove the debug badge from the `MaterialApp`.
+1.  **Update `pubspec.yaml`**: Add `image_picker` and `font_awesome_flutter` (if not already present and updated) for profile picture upload and Google logo. (Already done)
+2.  **Create `forgot_password_screen.dart`**: Implement a new screen for password reset functionality, including email input, OTP sending, and password reset.
+3.  **Modify `login_screen.dart`**:
+    *   Add navigation to `forgot_password_screen.dart` when "Forgot Password?" is tapped.
+    *   Integrate Google logo into "Sign in with Google" button.
+    *   Ensure the carved header is correctly applied.
+    *   Add a placeholder for displaying an uploaded profile picture in the header.
+4.  **Modify `account_type_selection_screen.dart`**: Apply the carved header.
+5.  **Modify `donor_registration_screen.dart` and `recipient_registration_screen.dart`**:
+    *   Apply the carved header to the forms.
+    *   Add functionality to upload a profile picture.
+    *   Add a placeholder for displaying the uploaded profile picture in the header.
+6.  **Modify `curved_header.dart`**: Adjust the `CurvedHeader` widget to optionally display a profile picture and title, making it reusable for different pages.
+7.  **Modify `main.dart`**:
+    *   Ensure all new routes are registered (if using named routes or `go_router`).
+    *   Remove the debug badge by setting `debugShowCheckedModeBanner: false`.
+    *   Ensure responsiveness across the entire application by using appropriate widgets (e.g., `MediaQuery`, `LayoutBuilder`, `SingleChildScrollView`, `Expanded`, `Flexible`) and responsive layouts.
+8.  **Refactor for Responsiveness**: Review all existing screens (`login_screen.dart`, `account_type_selection_screen.dart`, `donor_home_page.dart`, `donor_main_screen.dart`, `donor_map_page.dart`, `donor_profile_page.dart`, `donor_settings_page.dart`, `recipient_home_page.dart`, `recipient_main_screen.dart`, `recipient_map_page.dart`, `recipient_profile_page.dart`, `recipient_settings_page.dart`, `chat_history_page.dart`, `chat_screen.dart`, `find_donors_page.dart`, `curved_header.dart`, `pill_shaped_nav_bar.dart`, and the new screens) to ensure they are responsive. This includes:
+    *   Using `Padding` and `SizedBox` with relative values or `Expanded`/`Flexible` where necessary.
+    *   Wrapping content in `SingleChildScrollView` for scrollability on smaller screens.
+    *   Using `MediaQuery.of(context).size` to adapt UI elements.
