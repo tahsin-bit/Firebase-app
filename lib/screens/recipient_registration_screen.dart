@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:food_donation_app/screens/recipient/recipient_main_screen.dart'; // Assuming this is the recipient home page
-import 'package:food_donation_app/widgets/curved_header.dart';
+import 'package:roktalap/screens/recipient/recipient_main_screen.dart'; // Assuming this is the recipient home page
+import 'package:roktalap/widgets/curved_header.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 

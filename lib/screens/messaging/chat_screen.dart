@@ -33,7 +33,7 @@ class ChatScreen extends StatelessWidget {
         margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: isMe ? Colors.red[300] : Colors.grey[300],
+          color: isMe ? const Color(0xFFEF9A9A) : const Color(0xFFE0E0E0),
           borderRadius: BorderRadius.circular(16),
         ),
         child: const Text('This is a message.'),
@@ -48,7 +48,7 @@ class ChatScreen extends StatelessWidget {
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
+            color: Colors.grey.withAlpha(128), // Equivalent to withOpacity(0.5)
             spreadRadius: 1,
             blurRadius: 5,
           ),
